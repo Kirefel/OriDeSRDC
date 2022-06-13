@@ -1,0 +1,39 @@
+name: Build and publish package
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version and tag
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - uses: NuGet/setup-nuget@v1.0.6
+      - uses: microsoft/setup-msbuild@v1.1
+
+      - name: Build and package
+        run: msbuild /t:Build /restore /p:Configuration=Release /p:OutDir=..\build
+        
+      - name: Tag main branch
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/${{ github.event.inputs.version }}',
+              sha: context.sha
+            })
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./build/OriDeSRDC.dll
+          generate_release_notes: true
+          draft: true
+          tag_name: ${{ github.event.inputs.version }}
