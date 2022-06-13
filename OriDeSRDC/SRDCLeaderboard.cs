@@ -35,7 +35,7 @@ namespace OriDeSRDC
                     {
                         Username = players[i]["names"]["international"],
                         Time = runs[i]["run"]["times"]["primary_t"],
-                        Date = runs[i]["run"]["date"]
+                        Date = DateTime.Parse(runs[i]["run"]["date"])
                     };
                 }
 
@@ -62,6 +62,6 @@ namespace OriDeSRDC
     {
         public string Username { get; set; }
         public int Time { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
     }
 }

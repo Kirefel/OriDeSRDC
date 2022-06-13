@@ -27,7 +27,7 @@ namespace OriDeSRDC
                     ExtractedIntFromInt64 m_time = new ExtractedIntFromInt64(19);
                     ExtractedIntFromInt64 m_deathCount = new ExtractedIntFromInt64(1);
                     ExtractedIntFromInt64 m_incompletionPercentage = new ExtractedIntFromInt64(21);
-                    m_incompletionPercentage.Value = (int)(DateTime.UtcNow - DateTime.MinValue).TotalDays;
+                    m_incompletionPercentage.Value = (int)(run.Date - DateTime.MinValue).TotalDays;
                     m_incompletionPercentage.Encode(ref score);
                     m_time.Value = run.Time;
                     m_time.Encode(ref score);
