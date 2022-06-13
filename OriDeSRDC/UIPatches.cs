@@ -29,7 +29,7 @@ namespace OriDeSRDC
         [HarmonyPrefix, HarmonyPatch("get_CurrentMetaData")]
         private static bool get_CurrentMetaDataPrefix(LeaderboardTableUI __instance, ref LeaderboardTableUI.LeaderboardMetaData __result)
         {
-            __result = __instance.MetaData.FirstOrDefault(x => x.Leaderboard == Leaderboard.SpeedRunner);
+            __result = __instance.MetaData.FirstOrDefault(x => x.Leaderboard == Leaderboard.SpeedRunner); // Defines column and row layout
             return HarmonyHelper.StopExecution;
         }
 
@@ -39,6 +39,7 @@ namespace OriDeSRDC
             if (___m_header)
             {
                 UnityEngine.Object.Destroy(___m_header.transform.Find("deathsText").gameObject);
+                ___m_header.transform.Find("completionText").GetComponent<MessageBox>().SetMessage(new MessageDescriptor("Date"));
             }
         }
     }
