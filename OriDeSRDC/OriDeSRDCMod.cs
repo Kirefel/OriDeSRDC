@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using BaseModLib;
+using HarmonyLib;
 using OriDeModLoader;
 
 namespace OriDeSRDC
@@ -11,6 +12,8 @@ namespace OriDeSRDC
 
         public void Init()
         {
+            Controllers.Add<SRDCLoader>();
+
             harmony = new Harmony("oridesrdc");
             harmony.PatchAll();
         }

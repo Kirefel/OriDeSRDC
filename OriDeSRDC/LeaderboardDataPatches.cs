@@ -11,38 +11,42 @@ namespace OriDeSRDC
         [HarmonyPrefix, HarmonyPatch(nameof(LeaderboardsB.UpdateLeaderboard))]
         private static bool UpdateLoaderboardPrefix(Leaderboard leaderboard)
         {
+            if (!SRDCLoader.Instance)
+                return HarmonyHelper.StopExecution;
+
             LeaderboardsB.ClearTableUI();
-            SRDCLeaderboard.Load(leaderboard, () => { });
-
-            LeaderboardB leaderboardB = LeaderboardUtility.LeaderboardToLeaderboardB(leaderboard, DifficultyMode.Normal);
-
-            List<LeaderboardData.Entry> ldes = new List<LeaderboardData.Entry>();
-            uint index = 1;
-            foreach (var run in SRDCLeaderboard.GetRuns(leaderboard, 10, 0))
+            SRDCLeaderboard.Load(leaderboard, () =>
             {
-                long score = 0;
-                ExtractedIntFromInt64 m_time = new ExtractedIntFromInt64(19);
-                ExtractedIntFromInt64 m_deathCount = new ExtractedIntFromInt64(1);
-                ExtractedIntFromInt64 m_incompletionPercentage = new ExtractedIntFromInt64(21);
-                m_incompletionPercentage.Value = (int)(DateTime.UtcNow - DateTime.MinValue).TotalDays;
-                m_incompletionPercentage.Encode(ref score);
-                m_time.Value = run.Time;
-                m_time.Encode(ref score);
-                m_deathCount.Value = 0;
-                m_deathCount.Encode(ref score);
+                LeaderboardB leaderboardB = LeaderboardUtility.LeaderboardToLeaderboardB(leaderboard, DifficultyMode.Normal);
 
-                ldes.Add(new LeaderboardData.Entry(leaderboard, index++, score, "id." + run.Username, run.Username));
-            }
-            LeaderboardData ld = new LeaderboardData(leaderboard, Leaderboards.Filter.Overall, "???", 10, ldes);
+                List<LeaderboardData.Entry> ldes = new List<LeaderboardData.Entry>();
+                uint index = 1;
+                foreach (var run in SRDCLeaderboard.GetRuns(leaderboard, 10, 0))
+                {
+                    long score = 0;
+                    ExtractedIntFromInt64 m_time = new ExtractedIntFromInt64(19);
+                    ExtractedIntFromInt64 m_deathCount = new ExtractedIntFromInt64(1);
+                    ExtractedIntFromInt64 m_incompletionPercentage = new ExtractedIntFromInt64(21);
+                    m_incompletionPercentage.Value = (int)(DateTime.UtcNow - DateTime.MinValue).TotalDays;
+                    m_incompletionPercentage.Encode(ref score);
+                    m_time.Value = run.Time;
+                    m_time.Encode(ref score);
+                    m_deathCount.Value = 0;
+                    m_deathCount.Encode(ref score);
 
-            var m_data = Traverse.Create(LeaderboardsB.Instance).Field("m_data").GetValue<Dictionary<LeaderboardB, LeaderboardData>>();
+                    ldes.Add(new LeaderboardData.Entry(leaderboard, index++, score, "id." + run.Username, run.Username));
+                }
+                LeaderboardData ld = new LeaderboardData(leaderboard, Leaderboards.Filter.Overall, "???", 10, ldes);
 
-            if (!m_data.ContainsKey(leaderboardB) || !m_data[leaderboardB].Update(ld))
-            {
-                m_data[leaderboardB] = ld;
-            }
+                var m_data = Traverse.Create(LeaderboardsB.Instance).Field("m_data").GetValue<Dictionary<LeaderboardB, LeaderboardData>>();
 
-            LeaderboardsB.RefreshTableUI();
+                if (!m_data.ContainsKey(leaderboardB) || !m_data[leaderboardB].Update(ld))
+                {
+                    m_data[leaderboardB] = ld;
+                }
+
+                LeaderboardsB.RefreshTableUI();
+            });
 
             return HarmonyHelper.StopExecution;
         }
