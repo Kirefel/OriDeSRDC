@@ -1,7 +1,8 @@
-﻿using HarmonyLib;
-using OriDeModLoader;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using HarmonyLib;
+using OriDeModLoader;
+using UnityEngine;
 
 namespace OriDeSRDC
 {
@@ -11,7 +12,7 @@ namespace OriDeSRDC
         [HarmonyPrefix, HarmonyPatch(nameof(LeaderboardsB.UpdateLeaderboard))]
         private static bool UpdateLoaderboardPrefix(Leaderboard leaderboard)
         {
-            if (!SRDCLoader.Instance)
+            if (!SRDCLoader.Instance || !LeaderboardsB.Instance.IsVisible || OptionsScreen.Instance.Navigation.Index != OptionsScreen.Instance.Navigation.MenuItems.Count - 1)
                 return HarmonyHelper.StopExecution;
 
             LeaderboardsB.ClearTableUI();
@@ -51,7 +52,7 @@ namespace OriDeSRDC
             return HarmonyHelper.StopExecution;
         }
 
-        private static Dictionary<Leaderboard, string> leaderboardCategoryMap = new Dictionary<Leaderboard, string>()
+        private static readonly Dictionary<Leaderboard, string> leaderboardCategoryMap = new Dictionary<Leaderboard, string>()
         {
             [Leaderboard.Explorer] = "All Skills No OOB/TA",
             [Leaderboard.SpeedRunner] = "All Cells No NG+",

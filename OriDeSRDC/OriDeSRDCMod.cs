@@ -8,7 +8,7 @@ namespace OriDeSRDC
     {
         public string Name => "Speedrun.com Leaderboards";
 
-        Harmony harmony;
+        private Harmony harmony;
 
         public void Init()
         {

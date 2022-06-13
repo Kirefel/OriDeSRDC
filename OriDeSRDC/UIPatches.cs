@@ -1,7 +1,7 @@
-﻿using HarmonyLib;
-using OriDeModLoader;
-using System;
+﻿using System;
 using System.Linq;
+using HarmonyLib;
+using OriDeModLoader;
 using UnityEngine;
 
 namespace OriDeSRDC
@@ -41,6 +41,16 @@ namespace OriDeSRDC
                 UnityEngine.Object.Destroy(___m_header.transform.Find("deathsText").gameObject);
                 ___m_header.transform.Find("completionText").GetComponent<MessageBox>().SetMessage(new MessageDescriptor("Date"));
             }
+        }
+    }
+
+    [HarmonyPatch(typeof(LeaderboardsB), nameof(LeaderboardsB.Awake))]
+    public static class OpenLeaderboardsWithoutSteam
+    {
+        private static void Postfix(LeaderboardsB __instance)
+        {
+            __instance.transform.Find("offline").gameObject.SetActive(false);
+            __instance.transform.Find("highlightFade").gameObject.SetActive(true);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using HarmonyLib;
+﻿using System;
+using HarmonyLib;
 using OriDeModLoader;
-using System;
 
 namespace OriDeSRDC
 {
