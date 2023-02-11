@@ -1,0 +1,6 @@
+{
+    "name": "Speedrun.com Leaderboards",
+    "version": "v1.0.0",
+    "preload": [],
+    "entrypoint": [ "OriDeSRDC.dll" ]
+}

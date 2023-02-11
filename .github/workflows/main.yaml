@@ -17,23 +17,12 @@ jobs:
       - uses: microsoft/setup-msbuild@v1.1
 
       - name: Build and package
-        run: msbuild /t:Build /restore /p:Configuration=Release /p:OutDir=..\build
-        
-      - name: Tag main branch
-        uses: actions/github-script@v5
-        with:
-          script: |
-            github.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: 'refs/tags/${{ github.event.inputs.version }}',
-              sha: context.sha
-            })
+        run: .\build.ps1
 
       - name: Publish release
         uses: softprops/action-gh-release@v1
         with:
-          files: ./build/OriDeSRDC.dll
+          files: ./OriDeSRDC.zip
           generate_release_notes: true
           draft: true
           tag_name: ${{ github.event.inputs.version }}
