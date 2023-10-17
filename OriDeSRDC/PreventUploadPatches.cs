@@ -1,20 +1,19 @@
 ﻿using System;
 using HarmonyLib;
-using OriDeModLoader;
+using OriModding.BF.Core;
 
-namespace OriDeSRDC
+namespace KFT.OriBF.SRDC;
+
+[HarmonyPatch(typeof(LeaderboardsController))]
+public static class LeaderboardsControllerPatches
 {
-    [HarmonyPatch(typeof(LeaderboardsController))]
-    public static class LeaderboardsControllerPatches
-    {
-        [HarmonyPrefix, HarmonyPatch(nameof(LeaderboardsController.UploadScores))]
-        private static bool UploadScoresPrefix() => HarmonyHelper.StopExecution;
-    }
+    [HarmonyPrefix, HarmonyPatch(nameof(LeaderboardsController.UploadScores))]
+    private static bool UploadScoresPrefix() => HarmonyHelper.StopExecution;
+}
 
-    [HarmonyPatch(typeof(Steamworks))]
-    public static class SteamworksPatches
-    {
-        [HarmonyPrefix, HarmonyPatch(nameof(Steamworks.SendLeaderboardData), argumentTypes: new Type[] { typeof(LeaderboardB), typeof(int), typeof(int[]) })]
-        private static bool SendLeaderboardDataPrefix() => HarmonyHelper.StopExecution;
-    }
+[HarmonyPatch(typeof(Steamworks))]
+public static class SteamworksPatches
+{
+    [HarmonyPrefix, HarmonyPatch(nameof(Steamworks.SendLeaderboardData), argumentTypes: new Type[] { typeof(LeaderboardB), typeof(int), typeof(int[]) })]
+    private static bool SendLeaderboardDataPrefix() => HarmonyHelper.StopExecution;
 }
