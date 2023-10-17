@@ -3,12 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KFT.OriBF.SRDC", "OriDeSRDC\KFT.OriBF.SRDC.csproj", "{569177E2-F186-4872-9CDD-1942FB40735B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A8B443D9-4DD6-4283-8F5C-3C50D49088E1}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KFT.OriBF.SRDC", "KFT.OriBF.SRDC\KFT.OriBF.SRDC.csproj", "{79DA5C91-11D3-4A27-AFB3-B643BA7CC6FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,10 +16,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{569177E2-F186-4872-9CDD-1942FB40735B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{569177E2-F186-4872-9CDD-1942FB40735B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{569177E2-F186-4872-9CDD-1942FB40735B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{569177E2-F186-4872-9CDD-1942FB40735B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79DA5C91-11D3-4A27-AFB3-B643BA7CC6FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79DA5C91-11D3-4A27-AFB3-B643BA7CC6FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79DA5C91-11D3-4A27-AFB3-B643BA7CC6FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79DA5C91-11D3-4A27-AFB3-B643BA7CC6FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
